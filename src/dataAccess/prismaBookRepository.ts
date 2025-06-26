@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { Book } from "../generated/prisma";
 
 export class PrismaBookRepository {
   private prisma: PrismaClient;
@@ -7,7 +8,7 @@ export class PrismaBookRepository {
     this.prisma = new PrismaClient();
   }
 
-  async createBook(title: string): Promise<Book> {
+  async create(title: string): Promise<Book> {
     return await this.prisma.book.create({
       data: {
         title,
@@ -16,15 +17,12 @@ export class PrismaBookRepository {
     });
   }
 
-  async getBookById(id: string): Promise<Book | null> {
+  async findById(id: string): Promise<Book | null> {
     return await this.prisma.book.findUnique({
       where: {
         id,
       },
     });
   }
-
-  async updateBook(id: string, title: string): Promise<Book | null> {
-  
-  
 }
+
